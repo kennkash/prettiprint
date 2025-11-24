@@ -1,0 +1,3 @@
+rich>=14.2.0
+--extra-index-url https://gitlab.smartcloud.samsungds.net/api/v4/projects/6621/packages/pypi/simple
+prettiprint
