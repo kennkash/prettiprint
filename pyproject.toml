@@ -1,0 +1,110 @@
+[project]
+name = "prettiprint"
+version = "0.2.3"
+author = "Kennedy Kashmiry"
+author_email = "k.kashmiry@samsung.com"
+authors = [
+    {name = "Kennedy Kashmiry", email = "k.kashmiry@samsung.com"}
+]
+description = "Utility functions for pretty‑printing various script info"
+readme = "README.md"
+license = {text = "MIT"}     
+license-files = ["LICENSE"] 
+requires-python = ">=3.9"
+
+dependencies = [
+    "rich>=13.0.0",
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://gitlab.smartcloud.samsungds.net/pypkg/prettiprint"
+Issues = "https://gitlab.smartcloud.samsungds.net/pypkg/prettiprint"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.tbump.version]
+current = "0.2.3"
+
+# Example of a semver regexp.
+# Make sure this matches current_version before
+# using tbump
+regex = '''
+  (?P<major>\d+)
+  \.
+  (?P<minor>\d+)
+  \.
+  (?P<patch>\d+)
+'''
+
+[tool.tbump.git]
+message_template = "bump to {new_version}"
+tag_template = "v{new_version}"
+atomic_push = false
+
+# For each file to patch, add a [[file]] config section containing
+# the path of the file, relative to the tbump.toml location.
+[[tool.tbump.file]]
+src = "pyproject.toml"
+search = 'version = "{current_version}"'
+
+[[tool.tbump.file]]
+src = "version.svg"
+
+[[tool.tbump.before_commit]]
+name = "Clean old distribution files"
+cmd = "rm -rf dist/*"
+
+[[tool.tbump.before_commit]]
+name = "Check code quality with pylint"
+cmd = "sh src/prettiprint/pylint.sh"
+
+[[tool.tbump.before_commit]]
+name = "Create distribution files"
+cmd = "python -m build"
+
+[[tool.tbump.before_commit]]
+name = "Add the dist and egg files in case the IDE missed it"
+cmd = "git add dist src/prettiprint.egg-info"
+
+[[tool.tbump.before_commit]]
+name = "Add the packages"
+cmd = 'git commit -m "build packages"'
+
+# update the changelog
+[[tool.tbump.after_push]]
+name = "Updating the changelog"
+cmd = "sh changelog.sh"
+
+[[tool.tbump.after_push]]
+name = "Adding the changelog to git"
+cmd = "git add CHANGELOG.md"
+
+[[tool.tbump.after_push]]
+name = "Committing the changelog"
+cmd = 'git commit -m "bump to update changelog"'
+
+[[tool.tbump.after_push]]
+name = "Committing the changelog"
+cmd = "git push"
+
+[[tool.tbump.after_push]]
+name = "Upload pkg to repo"
+cmd = "twine upload --verbose --repository prettiprint dist/*"
+
+[tool.git-changelog]
+convention = "angular"
+in-place = false
+output = "CHANGELOG.md"
+parse-refs = true
+parse-trailers = true
+provider = "gitlab"
+sections = "build,deps,fix,feat,refactor,style,tests"
+template = "path:src/prettiprint/templates/changelog.j2"

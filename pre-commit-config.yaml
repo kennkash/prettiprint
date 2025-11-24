@@ -1,0 +1,12 @@
+# run before making the commit
+repos:
+   - repo: local
+     hooks:
+       - id: gitlint
+         name: gitlint
+         language: python
+         entry: gitlint
+         args: [--staged, --msg-filename]
+         stages: [commit-msg]
+         require_serial: true
+         additional_dependencies: [gitlint]
