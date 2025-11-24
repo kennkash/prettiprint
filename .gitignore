@@ -1,0 +1,23 @@
+# security
+.env*
+
+# development
+!dev-requirements.txt
+
+# distribution
+!dist
+!*.tar.gz
+!src/prettiprint.egg-info
+!src/prettiprint.egg-info/dependency_links.txt
+!src/prettiprint.egg-info/requires.txt
+!src/prettiprint.egg-info/SOURCES.txt
+!src/prettiprint.egg-info/top_level.txt
+
+# IDE/etc
+.idea/*
+*.pyc
+build/
+tests/
+
+# test scripts
+test*.py
