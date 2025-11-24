@@ -1,0 +1,14 @@
+[MASTER]
+# basic settings
+ignore=setup.py
+
+[FORMAT]
+max-line-length=240
+
+[MESSAGES CONTROL]
+# common checks to disable that we disable all the time
+disable=invalid-name,too-few-public-methods,too-many-arguments,too-many-branches
+
+[DESIGN]
+# common settings
+max-locals=25
