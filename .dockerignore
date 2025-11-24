@@ -1,0 +1,11 @@
+# exclude files that do not need to be in the image
+**/.git
+**/build
+**/dist
+**/templates
+*.md
+*.jpd
+*.toml
+*.sh
+
+  
