@@ -1,0 +1,14 @@
+[general]
+# enforce conventional commits
+contrib=contrib-title-conventional-commits
+
+# we do not follow this rules (body, trailing punctuation)
+ignore=body-is-missing,T3
+
+# for matching ignore titles
+regex-style-search=True
+
+[ignore-by-title]
+# common tbump commits
+regex=^v(.*)|^bump|^init|^build
+ignore=all
